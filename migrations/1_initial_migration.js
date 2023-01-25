@@ -3,5 +3,5 @@ const Migrations = artifacts.require("Migrations");
 
 module.exports = function (deployer) {
   //caling interface for deployment aka "deployer"
-  deployer.deploy(Migrations);
+  deployer.deploy(Migrations, {overwrite: false});
 };
