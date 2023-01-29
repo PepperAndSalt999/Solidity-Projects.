@@ -15,11 +15,15 @@ contract Operation {
         state_variable = state_variable + state_modifier * 2;
     }
 
-    function multiply_number(uint _useless_number) pure external returns (uint) {
+    function multiply_number(uint _useless_number) pure public returns (uint) {
         uint new_number;
         new_number = _useless_number * 2;
         return(new_number);
     }
+}
 
-    
+contract Advanced_operation is Operation {
+    function advanced_multiplication(uint _useless_number) pure external returns (uint) {
+        return(multiply_number(_useless_number) * multiply_number(_useless_number));
+    }
 }
