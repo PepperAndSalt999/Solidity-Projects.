@@ -51,14 +51,14 @@ contract Storage_contract_filled {
 }
 
 contract Contract_single_fonction {
-    function test_function() public {
+    function test_function() pure public {
 
     }
 }
 
 
 contract Contract_multiples_fonction {
-    function test_function() external{
+    function test_function() public{
 
     }
     function test_function2() external{
