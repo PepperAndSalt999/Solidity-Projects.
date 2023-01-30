@@ -36,4 +36,14 @@ contract("Gaz_test", () => {
     console.log(gasEstimate);
     assert(tx);
   });
+  it("gaz used for creating Contract with single vs Multiple functions is smaller", async () => {
+
+    const GasTest_instance = await GasTest.new();
+    const gasEstimate_1 = await GasTest_instance.createSingleFonction.estimateGas();
+    const gasEstimate_2 = await GasTest_instance.createMultFonction.estimateGas();
+  
+    console.log("single function :", gasEstimate_1);
+    console.log("multiple functions:", gasEstimate_2);
+    assert(gasEstimate_1 < gasEstimate_2);
+  });
 });
