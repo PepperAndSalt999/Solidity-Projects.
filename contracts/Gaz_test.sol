@@ -51,7 +51,7 @@ contract Storage_contract_filled {
 }
 
 contract Contract_single_fonction {
-    function test_function() pure public {
+    function test_function() public {
 
     }
 }
@@ -71,6 +71,39 @@ contract Contract_multiples_fonction {
 
     }
     function test_function5() external{
+
+    }
+}
+
+contract Contract_lot_of_fonction {
+    function test_function() public{
+
+    }
+    function test_function2() public{
+
+    }
+    function test_function3() public{
+
+    }
+    function test_function4() public{
+
+    }
+    function test_function5() public{
+
+    }
+    function test_function6() public{
+
+    }
+    function test_function7() public{
+
+    }
+    function test_function8() public{
+
+    }
+    function test_function9() public{
+
+    }
+    function test_function10() public{
 
     }
 }
