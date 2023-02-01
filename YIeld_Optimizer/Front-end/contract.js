@@ -15,3 +15,11 @@ connectButton.addEventListener("click", () => {
            installAlert.classList.add("show");
         }
 });
+
+const form = document.getElementById("form");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const numberInput = document.getElementById("numberInput");
+  const enteredNumber = numberInput.value;
+  console.log("The entered number is:", enteredNumber);
+});
