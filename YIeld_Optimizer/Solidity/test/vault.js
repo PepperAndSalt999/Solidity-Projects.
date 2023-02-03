@@ -1,8 +1,12 @@
 const Vault =  artifacts.require("Vault");
 
-describe("Write features of vault", function(){
-    if("able to receive money", async function(){
+
+contract("Vault", function (accounts) {
+    it("able to receive money", async function(){
         const vault = await Vault.new();
-       // assert.equal(await Vault.getter(), 100);
+
+        const amount = web3.utils.toWei("1", "ether");
+        await vault.send(web3.utils.toWei("1", "ether")); //equivalent of web3.eth.sendTransaction
+        assert.equal(await vault.getter(), amount);
     });
 });
