@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity >=0.8.0 <0.9.0; //auto check for underflows and overflows
 
 contract Vault 
 {
@@ -7,15 +7,14 @@ contract Vault
     //fallback makes it auto executed if the caller try to call an unavailable functon
     //limited to 2300 gas
     mapping(address => uint) private addressMoney;
-    receive() external payable 
+    receive() external payable //payable gives access to eth stored in msg.value
     {
         addressMoney[msg.sender] += msg.value;
     }
 
-    function withdraw() external
+    function withdraw(uint256 amount) external
     {
-        uint amount;
-        amount = addressMoney[msg.sender];
+        require(addressMoney[msg.sender] >= amount && amount > 0, "not enough money stored");
         payable(msg.sender).transfer(amount);
     }
 
