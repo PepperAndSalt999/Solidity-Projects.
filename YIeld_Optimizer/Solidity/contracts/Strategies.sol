@@ -4,24 +4,20 @@ pragma solidity >=0.8.0 <0.9.0; //auto check for underflows and overflows
 contract Strategies
 {
     struct Strategy {
-        uint256 id;
-        string name;
-        uint256 age;
+        uint    debtRatio;
+        uint    performanceFee;
+        uint    harvestTiming;
+        string  name;
     }
-    Strategy[] private strategies;
+    mapping(address => Strategy) public strategies;
 
-    function setter(uint256 _id, string memory _name, uint256 _age) external 
+    function createStrategy(address strategyAddress, uint _debtRatio, string memory _name, uint256 _performanceFee, uint _harvestTiming) external 
     {
-        Strategy memory newStrategy = Strategy({
-            id : _id,
-            name: _name,
-            age:  _age
+        strategies[strategyAddress] = Strategy({
+            debtRatio :      _debtRatio,
+            name:            _name,
+            performanceFee:  _performanceFee,
+            harvestTiming:   _harvestTiming
         });
-        strategies.push(newStrategy);
-    }
-
-    function getter() external view returns (uint)
-    {
-        // returns(Strategy[id])
     }
 }
