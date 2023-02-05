@@ -10,7 +10,7 @@ contract Vault is Strategies
 
     struct Accounts {
         uint        eth;
-        Strategy    addrStrategy;
+        address   addrStrategy;
     }
     mapping(address => Accounts) public accounts;
 
@@ -23,20 +23,20 @@ contract Vault is Strategies
         accounts[msg.sender].eth += msg.value;
     }
 
-    function chooseStrategy(uint eth, address addr, address strategyAddress) public
+    function chooseStrategy(uint eth, address strategyAddress) public
     {
-        require(strategies[strategyAddress]);
-        accounts[msg.sender].push(Accounts(eth, strategyAddress));
+        require(strategies[strategyAddress].debtRatio != 0);
+        accounts[msg.sender] = Accounts(eth, strategyAddress);
     }
 
     function withdraw(uint256 amount) external
     {
-        require(strategies[msg.sender] >= amount && amount > 0, "not enough money stored");
+        require(accounts[msg.sender].eth >= amount && amount > 0, "not enough money stored");
         payable(msg.sender).transfer(amount);
     }
 
     function getter() external view returns (uint)
     {
-        return (strategies[msg.sender]);
+        return (accounts[msg.sender].eth);
     }
 }
