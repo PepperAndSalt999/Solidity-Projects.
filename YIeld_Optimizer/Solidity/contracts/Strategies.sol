@@ -7,13 +7,15 @@ contract Strategies
         uint    debtRatio;
         uint    performanceFee;
         uint    harvestTiming;
+        string  id;
         string  name;
     }
-    mapping(address => Strategy) public strategies;
+    mapping(string => Strategy) public strategies;
 
-    function createStrategy(address strategyAddress, uint _debtRatio, string memory _name, uint256 _performanceFee, uint _harvestTiming) external 
+    function createStrategy(string memory _id, uint _debtRatio, string memory _name, uint256 _performanceFee, uint _harvestTiming) external 
     {
-        strategies[strategyAddress] = Strategy({
+        strategies[_id] = Strategy({
+            id:              _id,
             debtRatio :      _debtRatio,
             name:            _name,
             performanceFee:  _performanceFee,
