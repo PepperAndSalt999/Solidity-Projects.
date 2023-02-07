@@ -6,13 +6,13 @@ pragma solidity >=0.8.0 <0.9.0; //auto check for underflows and overflows
 contract Strategies
 {
     struct Strategy {
-        uint    debtRatio;
-        uint    performanceFee;
-        uint    harvestTiming;
-        uint[]    repartition;
+        uint        debtRatio;
+        uint        performanceFee;
+        uint        harvestTiming;
+        uint[]      repartition;
         string      id;
         string      name;
-        address[] targets;
+        address[]   targets;
     }
     mapping(string => Strategy) public strategies;
 

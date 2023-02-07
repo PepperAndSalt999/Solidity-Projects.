@@ -6,53 +6,53 @@ pragma solidity >=0.8.0 <0.9.0; //auto check for underflows and overflows
 //harvest when called for harvesting
 //withdraw when called for withdraw
 
-library IStrategy
+interface IStrategy
 {
     struct Strategy
     {
-        uint    debtRatio;
-        uint    performanceFee;
-        uint    harvestTiming;
-        uint[]    repartition;
+        uint        debtRatio;
+        uint        performanceFee;
+        uint        harvestTiming;
+        uint[]      repartition;
         string      id;
         string      name;
-        address[] targets;
+        address[]   targets;
     }
 }
 
-contract Execute_strategies {
-    mapping(address => uint) eth;
+contract Execute_strategies is IStrategy{
+    mapping(address => uint) public eth;
     mapping(address => address[]) target_list;
 
-    function set_execution(IStrategy.Strategy strategy) external payable {
+    function set_execution(IStrategy.Strategy calldata strategy) external payable {
         target_list[msg.sender] = strategy.targets;
         eth[msg.sender] = msg.value;
-        dispatch_eth(strategy, msg.sender);
+        //dispatch_eth(strategy, msg.sender);
     }
 
-    function dispatch_eth(address[] memory targets, address sender, uint[] memory repartition) internal{
-        uint16 i;
-        uint amount;
+    // function dispatch_eth(IStrategy.Strategy calldata strategy, address sender) internal{
+    //     uint16 i;
+    //     uint amount;
     
-        while(targets[i]){
-            amount =  eth[sender] * repartition[i] / 100;
-            amount -= eth[sender];
-            targets[i].send(amount);
-            i++;
-        }
-    }
+    //     while(i < strategy.targets.length){
+    //         amount =  eth[sender] * strategy.repartition[i] / 100;
+    //         amount -= eth[sender];
+    //         payable(strategy.targets[i]).transfer(amount);
+    //         i++;
+    //     }
+    // }
 
-    function harvest(address[] memory targets) external
-    {
-        uint16 i;
-        uint amount;
+    // function harvest(address[] memory targets) external
+    // {
+    //     uint16 i;
+    //     uint amount;
     
-        while(targets[i]){
-            amount = targets[i].call();
-            targets[i].send(amount);
-            i++;
-        }
-    }
+    //     while(targets[i]){
+    //         amount = targets[i].call();
+    //         targets[i].send(amount);
+    //         i++;
+    //     }
+    // }
 
     // function withdraw(address[] memory targets) external
     // {
