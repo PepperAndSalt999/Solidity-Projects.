@@ -1,3 +1,3 @@
 # Solidity-Projects.
 .
-Learning solidity for by doing toy projects
+Learning solidity by doing toy projects
