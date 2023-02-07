@@ -37,6 +37,7 @@ contract Vault is Strategies
     function setter(string memory strategy_name) payable external {
         require(msg.value > 0 && accounts[msg.sender].eth == 0);
         accounts[msg.sender] = Accounts(msg.value, strategy_name);
+        //accounts[msg.sender].eth.send();
     }
 
 }
