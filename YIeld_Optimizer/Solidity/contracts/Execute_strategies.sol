@@ -42,17 +42,17 @@ contract Execute_strategies is IStrategy{
         }
     }
 
-    // function harvest(address[] memory targets) external
-    // {
-    //     uint16 i;
-    //     uint amount;
+    function harvest(address[] memory targets) external
+    {
+        uint16 i;
+        uint amount;
     
-    //     while(targets[i]){
-    //         amount = targets[i].call();
-    //         targets[i].send(amount);
-    //         i++;
-    //     }
-    // }
+        while(i < targets.length){
+            //amount = targets[i].balance;
+            payable(targets[i]).transfer(amount);
+            i++;
+        }
+    }
 
     // function withdraw(address[] memory targets) external
     // {
