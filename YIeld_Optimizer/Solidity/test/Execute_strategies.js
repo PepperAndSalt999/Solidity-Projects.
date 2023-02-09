@@ -10,9 +10,13 @@ contract("Execute_strategies", function(accounts) {
             repartition: [10,50,20,15],
             id: "123",
             name :"test",
-            targets: [accounts[2],accounts[3], accounts[3], accounts[4]]
+            targets: [accounts[2],accounts[3], accounts[5], accounts[4]]
         };
-        await executer.set_execution(strategy, {from: accounts[0], value: 1000000000});
+        await executer.set_execution(strategy, {from: accounts[0], value: 100000});
         assert.ok((await executer.eth(accounts[0])) > 0);
+        for(i = 0; i < 4; i++)
+        {
+            //assert.ok(await strategy.targets[i].balance.call() > 0);
+        }
     });
 });

@@ -27,20 +27,20 @@ contract Execute_strategies is IStrategy{
     function set_execution(IStrategy.Strategy calldata strategy) external payable {
         target_list[msg.sender] = strategy.targets;
         eth[msg.sender] = msg.value;
-        //dispatch_eth(strategy, msg.sender);
+        dispatch_eth(strategy, msg.sender);
     }
 
-    // function dispatch_eth(IStrategy.Strategy calldata strategy, address sender) internal{
-    //     uint16 i;
-    //     uint amount;
+    function dispatch_eth(IStrategy.Strategy calldata strategy, address sender) internal{
+        uint16 i;
+        uint amount;
     
-    //     while(i < strategy.targets.length){
-    //         amount =  eth[sender] * strategy.repartition[i] / 100;
-    //         amount -= eth[sender];
-    //         payable(strategy.targets[i]).transfer(amount);
-    //         i++;
-    //     }
-    // }
+        while(i < strategy.targets.length()){
+            amount =  eth[sender] * strategy.repartition[i] / 100;
+            amount -= eth[sender];
+            payable(strategy.targets[i]).transfer(amount);
+            i++;
+        }
+    }
 
     // function harvest(address[] memory targets) external
     // {
