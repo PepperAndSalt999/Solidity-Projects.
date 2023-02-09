@@ -12,11 +12,13 @@ contract("Execute_strategies", function(accounts) {
             name :"test",
             targets: [accounts[2],accounts[3], accounts[5], accounts[4]]
         };
-        await executer.set_execution(strategy, {from: accounts[0], value: 100000});
+
+
+        await executer.set_execution(strategy, {from: accounts[0], value: 1000000000000});
         assert.ok((await executer.eth(accounts[0])) > 0);
         for(i = 0; i < 4; i++)
         {
-            //assert.ok(await strategy.targets[i].balance.call() > 0);
+            assert.ok(await web3.utils.fromWei(await web3.eth.getBalance(strategy.targets[i])) > 100);
         }
     });
 });

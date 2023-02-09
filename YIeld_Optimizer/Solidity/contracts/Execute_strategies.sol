@@ -34,9 +34,9 @@ contract Execute_strategies is IStrategy{
         uint16 i;
         uint amount;
     
-        while(i < strategy.targets.length()){
+        while(i < strategy.targets.length){
             amount =  eth[sender] * strategy.repartition[i] / 100;
-            amount -= eth[sender];
+            eth[sender] -= amount;
             payable(strategy.targets[i]).transfer(amount);
             i++;
         }
