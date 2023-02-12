@@ -58,33 +58,33 @@ contract Execute_strategies is IStrategy{
         // }
     }
 
-    function harvest(address client) external
-    {
-        (bool success, bytes memory returnData) = target_list[client].target_contract.call(target_list[client].getter);
-        dispatch_eth(target_list[client].setter,  target_list[client].target_contract, target_list[client].eth);
-        // uint16 i;
-        // uint amount;
+    // function harvest(address client) external
+    // {
+    //     (bool success, bytes memory returnData) = target_list[client].target_contract.call(target_list[client].getter);
+    //     dispatch_eth(target_list[client].setter,  target_list[client].target_contract, target_list[client].eth);
+    //     // uint16 i;
+    //     // uint amount;
     
-        // while(i < targets.length){
-            //amount = targets[i].balance;
+    //     // while(i < targets.length){
+    //         //amount = targets[i].balance;
 
 
-            //launch money ? variable addresses, and variable functions 
-            //to add liquidity
-            //verify address and call  
-            //goal : to transfer money 
-            //withraw money has always variable functions 
-            /*
-                appel a une serie de functions, 
-                a.b
-                c.d
-                contrat "alternatif" et "modifiable"
-                addresse for money withdraw
-            */
-        //     payable(targets[i]).transfer(amount);
-        //     i++;
-        // }
-    }
+    //         //launch money ? variable addresses, and variable functions 
+    //         //to add liquidity
+    //         //verify address and call  
+    //         //goal : to transfer money 
+    //         //withraw money has always variable functions 
+    //         /*
+    //             appel a une serie de functions, 
+    //             a.b
+    //             c.d
+    //             contrat "alternatif" et "modifiable"
+    //             addresse for money withdraw
+    //         */
+    //     //     payable(targets[i]).transfer(amount);
+    //     //     i++;
+    //     // }
+    // }
 
     // function withdraw(address[] memory targets) external
     // {

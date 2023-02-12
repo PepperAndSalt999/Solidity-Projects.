@@ -4,6 +4,9 @@ contract("Execute_strategies", function(accounts) {
     it("fill_strategy metadata", async function(){
         const executer = await Executer.deployed();
         const strategy = {
+            target_setter: "target_setter",
+            target_getter: "target_getter",
+            target_contract: "target_contract",
             debtRatio: 9800,
             performanceFee: 2,
             harvestTiming: 50,

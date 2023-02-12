@@ -18,13 +18,20 @@ contract Strategies
     }
     mapping(string => Strategy) public strategies;
 
-    function createStrategy(address _target_contract, string calldata _target_setter, string calldata _target_getter, 
-                    bytes32[] calldata setter_params, bytes32[] calldata getter_params, uint[] calldata _repartition, string memory _id,
-                    uint _debtRatio, string memory _name, uint256 _performanceFee, uint _harvestTiming) external
-    {
+    function createStrategy_targets(address _target_contract, string calldata _target_setter, string calldata _target_getter, 
+                                    bytes32[] calldata setter_params, bytes32[] calldata getter_params, string calldata id) external
+    {        
         bytes4 selector_setter = bytes4(keccak256(abi.encodePacked(_target_setter)));
         bytes4 selector_getter = bytes4(keccak256(abi.encodePacked(_target_getter)));
+        strategies[id].target_setter = abi.encodeWithSelector(selector_setter, setter_params);
+        strategies[id].target_setter = abi.encodeWithSelector(selector_getter, getter_params);
+        strategies[id].target_contract = _target_contract;
+    }
 
+    function createStrategy(
+                     uint[] calldata _repartition, string memory _id,
+                    uint _debtRatio, string memory _name, uint256 _performanceFee, uint _harvestTiming) external
+    {
         strategies[_id] = Strategy({
             id:                     _id,
             debtRatio :             _debtRatio,
@@ -32,9 +39,10 @@ contract Strategies
             performanceFee:         _performanceFee,
             harvestTiming:          _harvestTiming,
             repartition:            _repartition,
-            target_contract:       _target_contract,
-            target_setter:         abi.encodeWithSelector(selector_setter, setter_params),
-            target_getter:         abi.encodeWithSelector(selector_getter, getter_params)
+            target_contract:        address(0),
+            target_setter:          "",
+            target_getter:          ""
+
         });
     }
 }
