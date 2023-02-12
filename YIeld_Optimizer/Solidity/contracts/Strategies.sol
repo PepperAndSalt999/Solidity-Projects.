@@ -12,20 +12,26 @@ contract Strategies
         uint[]      repartition;
         string      id;
         string      name;
-        address[]   targets;
+        address     target_contract;
+        bytes4      target_setter;
+        bytes4      target_getter;
     }
     mapping(string => Strategy) public strategies;
 
-    function createStrategy(uint[] calldata _repartition, address[] calldata _targets, string memory _id, uint _debtRatio, string memory _name, uint256 _performanceFee, uint _harvestTiming) external 
+    function createStrategy(address _target_contract, string calldata _target_setter, string calldata _target_getter, 
+                    uint[] calldata _repartition, string memory _id, 
+                    uint _debtRatio, string memory _name, uint256 _performanceFee, uint _harvestTiming) external 
     {
         strategies[_id] = Strategy({
-            id:              _id,
-            debtRatio :      _debtRatio,
-            name:            _name,
-            performanceFee:  _performanceFee,
-            harvestTiming:   _harvestTiming,
-            repartition:     _repartition,
-            targets:         _targets
+            id:                     _id,
+            debtRatio :             _debtRatio,
+            name:                   _name,
+            performanceFee:         _performanceFee,
+            harvestTiming:          _harvestTiming,
+            repartition:            _repartition,
+            target_contract:       _target_contract,
+            target_setter:         bytes4(keccak256(abi.encodePacked(_target_setter))),
+            target_getter:         bytes4(keccak256(abi.encodePacked(_target_getter)))
         });
     }
 }
