@@ -19,17 +19,19 @@ contract Strategies
     mapping(string => Strategy) public strategies;
 
     function createStrategy_targets(address _target_contract, string calldata _target_setter, string calldata _target_getter, 
-                                    bytes32[] calldata setter_params, bytes32[] calldata getter_params, string calldata id) external
+                                    string calldata _setter_params, string calldata _getter_params, string calldata id) external
     {        
         bytes4 selector_setter = bytes4(keccak256(abi.encodePacked(_target_setter)));
         bytes4 selector_getter = bytes4(keccak256(abi.encodePacked(_target_getter)));
+        bytes32 setter_params = bytes32(keccak256(abi.encodePacked(_setter_params)));
+        bytes32 getter_params = bytes32(keccak256(abi.encodePacked(_getter_params)));
         strategies[id].target_setter = abi.encodeWithSelector(selector_setter, setter_params);
         strategies[id].target_setter = abi.encodeWithSelector(selector_getter, getter_params);
         strategies[id].target_contract = _target_contract;
     }
 
     function createStrategy(
-                     uint[] calldata _repartition, string memory _id,
+                    uint[] calldata _repartition, string memory _id,
                     uint _debtRatio, string memory _name, uint256 _performanceFee, uint _harvestTiming) external
     {
         strategies[_id] = Strategy({
