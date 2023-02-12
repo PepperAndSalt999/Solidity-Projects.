@@ -12,9 +12,9 @@ contract("Vault", function(accounts){
         await vault.setter(strategy_name, {from: account, value: amount * 2});
         assert.equal((await vault.accounts(account)).strategy_name, strategy_name);
     });
-    // it("send more money", async function(){ 
-    //     let balance = await vault.accounts(accounts[0]);
-    //     await vault.send(amount, {from: accounts[0]});
-    //     assert.ok(balance.eth < (await vault.accounts(accounts[0])).eth);
-    // });
+    it("test receive fallback function", async function(){ 
+        let balance = await vault.accounts(account);
+        await vault.send(amount, {from: account});
+        assert.ok(balance.eth < (await vault.accounts(account)).eth);
+    });
 });
