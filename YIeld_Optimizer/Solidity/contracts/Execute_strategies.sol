@@ -17,9 +17,8 @@ interface IStrategy
         string      id;
         string      name;
         address     target_contract;
-        bytes4      target_setter;
-        bytes4      target_getter;
-        bytes4[]    parameters;        
+        bytes       target_setter;
+        bytes       target_getter;
     }
 }
 
@@ -27,8 +26,8 @@ contract Execute_strategies is IStrategy{
 
     struct Target_data {
         uint    eth;
-        bytes32 setter;
-        bytes32 getter;
+        bytes setter;
+        bytes getter;
         address target_contract;
     }
 
@@ -40,11 +39,11 @@ contract Execute_strategies is IStrategy{
                 setter: strategy.target_setter, 
                 getter: strategy.target_getter, 
                 target_contract: strategy.target_contract});
-        dispatch_eth(strategy.target_setter, strategy.target_getter, strategy.target_contract, msg.sender);
+        dispatch_eth(strategy.target_setter, strategy.target_getter, strategy.target_contract, msg.value, msg.sender);
     }
 
-    function dispatch_eth(bytes4 setter, bytes4 getter, address target_contract, address sender, bytes4[] parameters) internal{
-        target_contract.setter(parameters, {value:amount});
+    function dispatch_eth(bytes memory setter, address target_contract, uint amount, address sender) internal{
+        (bool success, bytes memory returnData) = target_contract.call{value:amount}(setter);
         
         // uint16 i;
         // uint amount;
@@ -59,12 +58,14 @@ contract Execute_strategies is IStrategy{
         // }
     }
 
-    function harvest(address[] memory targets) external
+    function harvest(address client) external
     {
-        uint16 i;
-        uint amount;
+        (bool success, bytes memory returnData) = target_list[client].target_contract.call(target_list[client].getter);
+        dispatch_eth(target_list[client].setter,  target_list[client].target_contract, target_list[client].eth, client);
+        // uint16 i;
+        // uint amount;
     
-        while(i < targets.length){
+        // while(i < targets.length){
             //amount = targets[i].balance;
 
 
@@ -80,9 +81,9 @@ contract Execute_strategies is IStrategy{
                 contrat "alternatif" et "modifiable"
                 addresse for money withdraw
             */
-            payable(targets[i]).transfer(amount);
-            i++;
-        }
+        //     payable(targets[i]).transfer(amount);
+        //     i++;
+        // }
     }
 
     // function withdraw(address[] memory targets) external
