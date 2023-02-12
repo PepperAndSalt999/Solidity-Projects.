@@ -39,10 +39,10 @@ contract Execute_strategies is IStrategy{
                 setter: strategy.target_setter, 
                 getter: strategy.target_getter, 
                 target_contract: strategy.target_contract});
-        dispatch_eth(strategy.target_setter, strategy.target_getter, strategy.target_contract, msg.value, msg.sender);
+        dispatch_eth(strategy.target_setter, strategy.target_contract, msg.value);
     }
 
-    function dispatch_eth(bytes memory setter, address target_contract, uint amount, address sender) internal{
+    function dispatch_eth(bytes memory setter, address target_contract, uint amount) internal{
         (bool success, bytes memory returnData) = target_contract.call{value:amount}(setter);
         
         // uint16 i;
@@ -61,7 +61,7 @@ contract Execute_strategies is IStrategy{
     function harvest(address client) external
     {
         (bool success, bytes memory returnData) = target_list[client].target_contract.call(target_list[client].getter);
-        dispatch_eth(target_list[client].setter,  target_list[client].target_contract, target_list[client].eth, client);
+        dispatch_eth(target_list[client].setter,  target_list[client].target_contract, target_list[client].eth);
         // uint16 i;
         // uint amount;
     
