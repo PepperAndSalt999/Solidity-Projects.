@@ -41,9 +41,8 @@
  * https://trufflesuite.com/docs/truffle/getting-started/using-the-truffle-dashboard/
  */
 
-//require('dotenv').config();
-const { MNEMONIC, PROJECT_ID } = process.env;
-
+require('dotenv').config();
+const { MNEMONIC } = process.env;
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 module.exports = {
@@ -83,7 +82,7 @@ module.exports = {
     // Useful for deploying to a public network.
     // Note: It's important to wrap the provider as a function to ensure truffle uses a new provider every time.
     goerli: {
-      provider: () => new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${PROJECT_ID}`),
+      provider: () => new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161`), //using goerli infura rpc and metamask account
       network_id: 5,       // Goerli's id
       confirmations: 2,    // # of confirmations to wait between deployments. (default: 0)
       timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
