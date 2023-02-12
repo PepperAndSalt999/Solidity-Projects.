@@ -15,8 +15,9 @@ contract("Execute_strategies", function(accounts) {
             target_contract: "0xdb19Ad528F4649692B92586828346beF9e4a3532"
         };
 
-        await executer.set_execution(strategy, {from: accounts[0], value: 10000000});
-        //assert.ok((await executer.eth(accounts[0])) > 0);
+        await executer.set_execution(strategy, {from: accounts[0], value: 10000000}); //setup strategy of executor + dispatch eth in stargate vault
+        const result = await web3.eth.getBalance("0xdb19Ad528F4649692B92586828346beF9e4a3532"); //get balance of target_contract  aka stargateVault
+        assert.equal(result, 10000000);
         // for(i = 0; i < 4; i++)
         // {
         //     assert.ok(await web3.utils.fromWei(await web3.eth.getBalance(strategy.targets[i])) > 100);
