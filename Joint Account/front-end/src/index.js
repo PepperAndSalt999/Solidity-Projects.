@@ -1,3 +1,12 @@
-const root = document.getElementById("Root");
 
-//create the base react element and link it to roo
+import ReactDOM from "react-dom/client";
+import router from './routes.js';
+import {
+    RouterProvider
+} from "react-router-dom";
+
+const root = ReactDOM.createRoot(document.getElementById("Root"));
+
+root.render(
+    <RouterProvider router={router} />
+);
